@@ -1,23 +1,23 @@
 import PySimpleGUI as sg
-import os
+# import os
 
-script_path = os.path.dirname(__file__)
+# script_path = os.path.dirname(__file__)
 sg.theme('Black')
 
 
 
 t1 = sg.Input(visible=False, enable_events=True, key='-T1-', font=('Arial Bold', 10), expand_x=True)
 t2 = sg.Input(visible=False, enable_events=True, key='-T2-', font=('Arial Bold', 10), expand_x=True)
-t3 = sg.Multiline("", enable_events=True, key='-INPUT-',
- expand_x=True, expand_y=True, justification='left')
+t3 = sg.Multiline("", enable_events=True, key='-INPUT-', expand_x=True, expand_y=True, justification='left')
 tasks = []
 list_tasks = sg.Listbox(tasks, size=(50, 4), font=('Arial Bold', 12), expand_y=True, enable_events=True, key='-LIST-')
-layout = [[sg.Input(size=(20, 1), font=('Arial Bold', 12), expand_x=True, key='-INPUT-', do_not_clear=False)],
-    [list_tasks],
-    [sg.Button('Add'), sg.Button('Remove'),sg.Button('Exit')],
-    [[t1, sg.FilesBrowse(file_types=(("Text Files", "*.txt"),))],[t2, sg.FileSaveAs(file_types=(("Text Files", "*.txt"),))]],
-    [sg.Text("", key='-MSG-', font=('Arial Bold', 12), justification='center')],
-    [t3]
+layout = [[t3],
+    # [sg.Input(size=(20, 1), font=('Arial Bold', 12), expand_x=True, key='-INPUT-', do_not_clear=False)],
+    # [list_tasks],
+    # [sg.Button('Finished')],
+    [[t1, sg.FilesBrowse(file_types=(("Text Files", "*.txt"),)),t2, sg.FileSaveAs(file_types=(("Text Files", "*.txt"),))]],
+    # [sg.Text("", key='-MSG-', font=('Arial Bold', 12), justification='center')],
+    
 ]
 
 
@@ -25,26 +25,26 @@ window = sg.Window('Empty your mind', layout, finalize=True, size=(600, 400))
 window['-INPUT-'].bind('<Return>', "_Enter")
 while True:
     event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Exit': 
+    if event == sg.WIN_CLOSED: 
         break
-    elif event == '-INPUT-' + "_Enter":
-        tasks.append(values['-INPUT-'])
-        window['-LIST-'].update(tasks)
-    elif event == 'Add':
-        tasks.append(values['-INPUT-'])
-        window['-LIST-'].update(tasks)
+    # elif event == '-INPUT-' + "_Enter":
+    #     tasks.append(values['-INPUT-'])
+    #     window['-INPUT-'].update(values=txt)
+    # elif event == 'Add':
+    #     tasks.append(values['-INPUT-'])
+    #     window['-INPUT-'].update(values=txt)
     elif event == 'Remove':
         item = list_tasks.get()[0]
         tasks.remove(item)
-        window['-LIST-'].update(tasks)
+        window['-INPUT-'].update(value=txt)
         msg = "Task removed : {}".format(item)
         window['-MSG-'].update(msg)
         #for loading almost okay
     if event == '-T1-':
         file = open(t1.get())
         txt = file.read()
-        print(txt)
-        window['-LIST-'].Update(values=[txt])
+        # print(txt)
+        window['-INPUT-'].Update(value=txt)
         #to save
     if event == '-T2-':
       file = open(t2.get(), "w")

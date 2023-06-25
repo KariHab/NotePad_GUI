@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python GUI_functions.py
+python NotePad.py

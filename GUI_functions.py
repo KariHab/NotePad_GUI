@@ -1,6 +1,8 @@
 import PySimpleGUI as sg
+import os
+import pickle
 
-
+script_path = os.path.dirname(__file__)
 sg.theme('DarkTanBlue')
 # All the stuff inside your window.
 
@@ -8,7 +10,8 @@ tasks = []
 list_tasks = sg.Listbox(tasks, size=(50, 4), font=('Arial Bold', 12), expand_y=True, enable_events=True, key='-LIST-')
 layout = [[sg.Input(size=(20, 1), font=('Arial Bold', 12), expand_x=True, key='-INPUT-', do_not_clear=False)],
     [list_tasks],
-    [sg.Button('Add'), sg.Button('Remove'), sg.Button('Save'), sg.Button('Exit')],
+    # [sg.FileBrowse(file_types=(("TXT Files", "*.txt"), ("ALL Files", "*.*")))],
+    [sg.Button('Add'), sg.Button('Remove'), sg.Button('Save'), sg.Button('Load'), sg.Button('Exit')],
     [sg.Text("", key='-MSG-', font=('Arial Bold', 12), justification='center')]
 ]
 
@@ -32,4 +35,14 @@ while True:
         window['-LIST-'].update(tasks)
         msg = "Task removed : {}".format(item)
         window['-MSG-'].update(msg)
+    # elif event == 'Save':
+    #     d = window['-FILE-'].get()
+    #     filename = sg.popup_get_file('', save_as=True, no_window=True, file_types=(("Text File", "*.txt"), ("All Files", "*.*")), initial_folder=script_path, default_path = d)
+    #     window.SaveToDisk(filename)
+    #     # window['-SAVE_AS-'].update(visible=False)
+    #     window['-INPUT-'].update(visible=True)
+    # # elif event == 'Load':
+    # #     file_name = sg.popup_get_file('Load', no_window=True)
+    # #     window.LoadFromDisk(file_name)
+        
 window.close()

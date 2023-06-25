@@ -178,3 +178,65 @@
 #         break
 
 # window.Close()
+
+# import PySimpleGUI as sg
+# import os
+
+# script_path = os.path.dirname(__file__)
+# sg.theme('DarkTeal9')      
+
+# layout_1 = [[sg.InputText("", key='-FILE-', font='Arial 9', size=(10,1)),
+#              sg.InputText("", key='-INPUT-', font='Arial 9', size=(10,1))]]
+# layout_2 = [[sg.Button ("Save As")]]
+# layout_3 = [[sg.Button('Save')]]
+
+# layout = [
+#           [sg.Column(layout_1, key='-LAY1-')],
+#           [sg.Column(layout_2, key='-SAVE_AS-'), sg.Column(layout_3, key='-SAVE-', visible=False),
+#            sg.Button ("Load"), sg.Button('Exit'),],
+#           ]
+# window = sg.Window("", layout, finalize = True)
+# while True:
+#     event, values = window.read()
+#     if event == sg.WIN_CLOSED or event == 'Exit':
+#         break
+#         window.close()
+
+#     elif event == 'Save As':
+#         d = window['-FILE-'].get()
+#         filename = sg.popup_get_file('', save_as=True, no_window=True, file_types=(("Python Files", "*.py"), ("All Files", "*.*")), initial_folder=script_path, default_path = d)
+#         window.SaveToDisk(filename)
+#         window['-SAVE_AS-'].update(visible=False)
+#         window['-SAVE-'].update(visible=True)
+#     if event == 'Save':
+#         d = window['-FILE-'].get()
+#         filename = sg.popup_get_file('', save_as=True, no_window=True, file_types=(("Python Files", "*.py"), ("All Files", "*.*")), initial_folder=script_path, default_path = d)
+#         window.SaveToDisk(filename)
+#         window['-SAVE_AS-'].update(visible=False)
+#         window['-SAVE-'].update(visible=True)                                                       
+#     if event == 'Load':
+#         file_name = sg.popup_get_file('Load', no_window=True)
+#         window.LoadFromDisk(file_name)
+
+# window.close()
+
+import PySimpleGUI as psg
+t1 = psg.Input(visible=False, enable_events=True, key='-T1-', font=('Arial Bold', 10), expand_x=True)
+t2 = psg.Input(visible=False, enable_events=True, key='-T2-', font=('Arial Bold', 10), expand_x=True)
+t3 = psg.Multiline("", enable_events=True, key='-INPUT-',
+ expand_x=True, expand_y=True, justification='left')
+layout = [[t1, psg.FilesBrowse()], [t3], [t2, psg.FileSaveAs()]]
+window = psg.Window('FileSaveAs Demo', layout, size=(715, 200))
+while True:
+   event, values = window.read()
+   if event == '-T1-':
+      file = open(t1.get())
+      txt = file.read()
+      window['-INPUT-'].Update(value=txt)
+   if event == '-T2-':
+      file = open(t2.get(), "w")
+      file.write(t3.get())
+      file.close()
+   if event == psg.WIN_CLOSED or event == 'Exit':
+      break
+window.close()

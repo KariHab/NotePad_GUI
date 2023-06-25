@@ -1,3 +1,7 @@
+# A notepad that allows you to drops ideas, tasks or things to do and save it as a text file
+# You can load any text file and modify it 
+# Karima H - June 2023
+
 import PySimpleGUI as sg
 # import os
 

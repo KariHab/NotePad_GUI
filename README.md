@@ -1,4 +1,5 @@
 # NotePad - Tasks - To Do list - Text Files
+![Notepad](https://github.com/KariHab/NotePad_GUI/assets/121245611/a306eef2-0b2a-49fa-b3dc-b854a257c8de)
 
 Using PySimpleGUI as a framework: https://github.com/PySimpleGUI
 
